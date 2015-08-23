@@ -7,8 +7,8 @@
     <ProjectGuid>{1AAC215A-AD94-4037-92A1-E913199D7091}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>NPOIExtend</RootNamespace>
-    <AssemblyName>NPOIExtend</AssemblyName>
+    <RootNamespace>NPOI.Extend</RootNamespace>
+    <AssemblyName>NPOI.Extend</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
