@@ -5,7 +5,7 @@
  修改记录：
 
 */
-using System;
+
 using NPOI.SS.UserModel;
 
 namespace NPOI.Extend
@@ -13,19 +13,21 @@ namespace NPOI.Extend
     public static class RowExtend
     {
         #region 1.0 清除单元格内容
+
         /// <summary>
-        /// 清除内容
+        ///     清除内容
         /// </summary>
         /// <param name="row">行</param>
         /// <returns>行</returns>
         public static IRow ClearContent(this IRow row)
         {
-            foreach (var cell in row.Cells)
+            foreach (ICell cell in row.Cells)
             {
                 cell.SetCellValue(string.Empty);
             }
             return row;
         }
+
         #endregion
     }
 }

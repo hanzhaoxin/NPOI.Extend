@@ -5,6 +5,7 @@
  修改记录：
 
 */
+
 using System.IO;
 using NPOI.SS.UserModel;
 
@@ -13,8 +14,9 @@ namespace NPOI.Extend
     public static class NPOIHelper
     {
         #region 1.0 加载模板,获取IWorkbook对象
+
         /// <summary>
-        /// 加载模板,获取IWorkbook对象
+        ///     加载模板,获取IWorkbook对象
         /// </summary>
         /// <param name="filePath"></param>
         /// <returns></returns>
@@ -25,6 +27,7 @@ namespace NPOI.Extend
                 return WorkbookFactory.Create(fileStream);
             }
         }
+
         #endregion
     }
 }

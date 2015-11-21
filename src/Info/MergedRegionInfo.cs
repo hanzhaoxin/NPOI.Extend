@@ -10,14 +10,15 @@ namespace NPOI.Extend
 {
     public class MergedRegionInfo
     {
-        public MergedRegionInfo(int index,int firstRow,int lastRow,int firstCol,int lastCol)
+        public MergedRegionInfo(int index, int firstRow, int lastRow, int firstCol, int lastCol)
         {
-            this.Index = index;
-            this.FirstRow = firstRow;
-            this.LastRow = lastRow;
-            this.FirstCol = firstCol;
-            this.LastCol = lastCol;
+            Index = index;
+            FirstRow = firstRow;
+            LastRow = lastRow;
+            FirstCol = firstCol;
+            LastCol = lastCol;
         }
+
         public int Index { get; set; }
         public int FirstRow { get; set; }
         public int LastRow { get; set; }

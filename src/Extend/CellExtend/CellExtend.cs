@@ -7,7 +7,6 @@
 */
 
 using System;
-using System.Collections.Generic;
 using NPOI.SS.UserModel;
 using NPOI.SS.Util;
 
@@ -16,8 +15,9 @@ namespace NPOI.Extend
     public static partial class CellExtend
     {
         #region 1.0 设置单元格值
+
         /// <summary>
-        /// 设置单元格值
+        ///     设置单元格值
         /// </summary>
         /// <param name="cell">单元格</param>
         /// <param name="value">值</param>
@@ -35,20 +35,19 @@ namespace NPOI.Extend
             {
                 if (value.GetType().FullName.Equals("System.Byte[]"))
                 {
-                    var pictureIdx = cell.Sheet.Workbook.AddPicture((Byte[])value, PictureType.PNG);
-                    var anchor = cell.Sheet.Workbook.GetCreationHelper().CreateClientAnchor();
+                    int pictureIdx = cell.Sheet.Workbook.AddPicture((Byte[]) value, PictureType.PNG);
+                    IClientAnchor anchor = cell.Sheet.Workbook.GetCreationHelper().CreateClientAnchor();
                     anchor.Col1 = cell.ColumnIndex;
                     anchor.Col2 = cell.ColumnIndex + cell.GetSpan().ColSpan;
                     anchor.Row1 = cell.RowIndex;
                     anchor.Row2 = cell.RowIndex + cell.GetSpan().RowSpan;
 
-                    var patriarch = cell.Sheet.CreateDrawingPatriarch();
-                    var pic = patriarch.CreatePicture(anchor, pictureIdx);
-
+                    IDrawing patriarch = cell.Sheet.CreateDrawingPatriarch();
+                    IPicture pic = patriarch.CreatePicture(anchor, pictureIdx);
                 }
                 else
                 {
-                    var valueTypeCode = Type.GetTypeCode(value.GetType());
+                    TypeCode valueTypeCode = Type.GetTypeCode(value.GetType());
                     switch (valueTypeCode)
                     {
                         case TypeCode.String: //字符串类型
@@ -83,11 +82,13 @@ namespace NPOI.Extend
                 }
             }
         }
+
         #endregion
 
         #region 1.1 获取单元格CellSpan信息
+
         /// <summary>
-        /// 获取cell的CellSpan信息
+        ///     获取cell的CellSpan信息
         /// </summary>
         /// <param name="cell">单元格</param>
         /// <returns></returns>
@@ -99,7 +100,7 @@ namespace NPOI.Extend
                 int regionsNum = cell.Sheet.NumMergedRegions;
                 for (int i = 0; i < regionsNum; i++)
                 {
-                    var range = cell.Sheet.GetMergedRegion(i);
+                    CellRangeAddress range = cell.Sheet.GetMergedRegion(i);
                     if (range.FirstRow == cell.RowIndex && range.FirstColumn == cell.ColumnIndex)
                     {
                         cellSpan.RowSpan = range.LastRow - range.FirstRow + 1;
@@ -110,6 +111,7 @@ namespace NPOI.Extend
             }
             return cellSpan;
         }
+
         #endregion
     }
 }

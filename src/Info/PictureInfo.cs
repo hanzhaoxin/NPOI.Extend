@@ -5,27 +5,28 @@
  修改记录：
 
 */
+
 using System;
 
 namespace NPOI.Extend
 {
     public class PictureInfo
     {
+        public PictureInfo(int minRow, int maxRow, int minCol, int maxCol, Byte[] pictureData, PictureStyle pictureStyle)
+        {
+            MinRow = minRow;
+            MaxRow = maxRow;
+            MinCol = minCol;
+            MaxCol = maxCol;
+            PictureData = pictureData;
+            PicturesStyle = pictureStyle;
+        }
+
         public int MinRow { get; set; }
         public int MaxRow { get; set; }
         public int MinCol { get; set; }
         public int MaxCol { get; set; }
         public Byte[] PictureData { get; set; }
         public PictureStyle PicturesStyle { get; set; }
-
-        public PictureInfo(int minRow, int maxRow, int minCol, int maxCol, Byte[] pictureData, PictureStyle pictureStyle)
-        {
-            this.MinRow = minRow;
-            this.MaxRow = maxRow;
-            this.MinCol = minCol;
-            this.MaxCol = maxCol;
-            this.PictureData = pictureData;
-            this.PicturesStyle = pictureStyle;
-        }
     }
 }

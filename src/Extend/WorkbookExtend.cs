@@ -17,8 +17,9 @@ namespace NPOI.Extend
     public static class WorkbookExtend
     {
         #region 1.0 将workbook转换成二进制文件流
+
         /// <summary>
-        /// 将workbook转换成二进制文件流
+        ///     将workbook转换成二进制文件流
         /// </summary>
         /// <param name="workbook">工作薄</param>
         /// <returns></returns>
@@ -30,6 +31,7 @@ namespace NPOI.Extend
                 return ms.ToArray();
             }
         }
+
         #endregion
     }
 }

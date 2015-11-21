@@ -10,21 +10,20 @@ namespace NPOI.Extend
 {
     public struct CellSpan
     {
+        private int _colSpan;
+        private int _rowSpan;
+
         public CellSpan(int rowSpan, int colSpan)
         {
-            this._rowSpan = rowSpan;
-            this._colSpan = colSpan;
+            _rowSpan = rowSpan;
+            _colSpan = colSpan;
         }
-
-        private int _rowSpan;
 
         public int RowSpan
         {
             get { return _rowSpan; }
             set { _rowSpan = value; }
         }
-
-        private int _colSpan;
 
         public int ColSpan
         {
