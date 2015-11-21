@@ -51,7 +51,7 @@ namespace NPOI.Extend
             {
                 IRow row = sheet.CreateRow(rowIndex + i);
             }
-            sheet.MovePictures(rowsCount);
+            sheet.MovePictures(rowIndex,null,null,null,moveRowCount:rowsCount);
             return rowList.ToArray();
         }
 
@@ -91,7 +91,7 @@ namespace NPOI.Extend
             if ((endRowIndex + 1) <= sheet.LastRowNum)
             {
                 sheet.ShiftRows((endRowIndex + 1), sheet.LastRowNum, -span, true, false);
-                sheet.MovePictures(-span);
+                sheet.MovePictures(endRowIndex + 1,null,null,null,moveRowCount:-span);
             }
             return span;
         }
