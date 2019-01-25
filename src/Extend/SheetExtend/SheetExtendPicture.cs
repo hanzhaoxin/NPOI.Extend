@@ -37,7 +37,7 @@ namespace NPOI.Extend
             anchor.Dx2 = picInfo.PicturesStyle.AnchorDx2;
             anchor.Dy1 = picInfo.PicturesStyle.AnchorDy1;
             anchor.Dy2 = picInfo.PicturesStyle.AnchorDy2;
-            anchor.AnchorType = 2;
+            anchor.AnchorType = AnchorType.MoveDontResize;
             IDrawing drawing = sheet.CreateDrawingPatriarch();
             IPicture pic = drawing.CreatePicture(anchor, pictureIdx);
             if (sheet is HSSFSheet)
