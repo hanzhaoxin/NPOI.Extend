@@ -6,12 +6,11 @@
     <title>$title$</title>
     <authors>$author$</authors>
     <owners>$author$</owners>
-    <!-- <licenseUrl>https://github.com/hanzhaoxin/NPOI.Extend/blob/master/License.txt</licenseUrl> -->
     <projectUrl>https://github.com/hanzhaoxin/NPOI.Extend</projectUrl>
     <iconUrl>http://images.cnblogs.com/cnblogs_com/hanzhaoxin/638238/o_NPOIExtend.png</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>$description$</description>
-    <releaseNotes>update npoi version.</releaseNotes>
+    <releaseNotes>convert to netstandard.</releaseNotes>
     <copyright>Copyright 2019</copyright>
   </metadata>
 </package>
