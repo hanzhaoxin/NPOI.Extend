@@ -339,3 +339,8 @@ ASALocalRun/
 
 # BeatPulse healthcheck temp database
 healthchecksdb
+
+# Self Defined
+*.bat
+*.nupkg
+*.nuspec
