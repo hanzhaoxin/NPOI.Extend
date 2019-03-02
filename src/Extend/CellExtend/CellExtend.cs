@@ -7,6 +7,7 @@
 */
 
 using System;
+using System.Drawing;
 using NPOI.SS.UserModel;
 using NPOI.SS.Util;
 
@@ -30,57 +31,43 @@ namespace NPOI.Extend
             if (null == value)
             {
                 cell.SetCellValue(string.Empty);
+                return;
             }
-            else
-            {
-                if (value.GetType().FullName.Equals("System.Byte[]"))
-                {
-                    int pictureIdx = cell.Sheet.Workbook.AddPicture((Byte[]) value, PictureType.PNG);
+
+            value.GetType()
+                .Case(typeof(String)).Do(() => cell.SetCellValue(Convert.ToString(value)))
+                .Case(typeof(DateTime)).Do(() => cell.SetCellValue(Convert.ToDateTime(value)))
+                .Case(typeof(Boolean)).Do(() => cell.SetCellValue(Convert.ToBoolean(value)))
+                .Case(typeof(Int16), typeof(Int32), typeof(Int64), typeof(Byte), typeof(Single), 
+                    typeof(Double), typeof(Decimal), typeof(UInt16), typeof(UInt32), typeof(UInt64)).Do(() => Convert.ToDouble(value))
+                .Case(typeof(IRichTextString)).Do(() => cell.SetCellValue((IRichTextString)value))
+                .Case(typeof(Image)).Do(() => {
+                    int pictureIdx = cell.Sheet.Workbook.AddPicture(((Image)value).ToBuffer(), PictureType.PNG);
                     IClientAnchor anchor = cell.Sheet.Workbook.GetCreationHelper().CreateClientAnchor();
                     anchor.Col1 = cell.ColumnIndex;
                     anchor.Col2 = cell.ColumnIndex + cell.GetSpan().ColSpan;
                     anchor.Row1 = cell.RowIndex;
                     anchor.Row2 = cell.RowIndex + cell.GetSpan().RowSpan;
-
                     IDrawing patriarch = cell.Sheet.CreateDrawingPatriarch();
                     IPicture pic = patriarch.CreatePicture(anchor, pictureIdx);
-                }
-                else
-                {
-                    TypeCode valueTypeCode = Type.GetTypeCode(value.GetType());
-                    switch (valueTypeCode)
-                    {
-                        case TypeCode.String: //字符串类型
-                            cell.SetCellValue(Convert.ToString(value));
-                            break;
+                });
+        }
 
-                        case TypeCode.DateTime: //日期类型
-                            cell.SetCellValue(Convert.ToDateTime(value));
-                            break;
 
-                        case TypeCode.Boolean: //布尔型
-                            cell.SetCellValue(Convert.ToBoolean(value));
-                            break;
+        /// <summary>
+        ///     获取单元格值
+        /// </summary>
+        /// <param name="cell">单元格</param>
+        /// <returns>值</returns>
+        public static object GetValue(this ICell cell)
+        {
+            object value = string.Empty;
+            cell.CellType
+                .Case(CellType.String).Do(() => value = cell.StringCellValue)
+                .Case(CellType.Numeric).Do(() => value = cell.NumericCellValue)
+                .Case(CellType.Boolean).Do(() => value = cell.BooleanCellValue);
 
-                        case TypeCode.Int16: //整型
-                        case TypeCode.Int32:
-                        case TypeCode.Int64:
-                        case TypeCode.Byte:
-                        case TypeCode.Single: //浮点型
-                        case TypeCode.Double:
-                        case TypeCode.Decimal:
-                        case TypeCode.UInt16: //无符号整型
-                        case TypeCode.UInt32:
-                        case TypeCode.UInt64:
-                            cell.SetCellValue(Convert.ToDouble(value));
-                            break;
-
-                        default:
-                            cell.SetCellValue(string.Empty);
-                            break;
-                    }
-                }
-            }
+            return value;
         }
 
         #endregion

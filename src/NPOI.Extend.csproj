@@ -2,14 +2,22 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <Version>1.0.5</Version>
+    <Version>1.0.6</Version>
     <Description>npoi extend library</Description>
     <Copyright>Copyright 2019</Copyright>
     <PackageLicenseUrl>https://github.com/hanzhaoxin/NPOI.Extend/blob/master/License.txt</PackageLicenseUrl>
     <PackageProjectUrl>https://github.com/hanzhaoxin/NPOI.Extend</PackageProjectUrl>
     <PackageIconUrl>http://images.cnblogs.com/cnblogs_com/hanzhaoxin/638238/o_NPOIExtend.png</PackageIconUrl>
-    <PackageReleaseNotes>Convert to net Standard library.</PackageReleaseNotes>
+    <PackageReleaseNotes></PackageReleaseNotes>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="NPOI.Extend.1.0.5.nupkg" />
+    <None Remove="NPOI.Extend.nuspec" />
+    <None Remove="第一步.bat" />
+    <None Remove="第三步.bat" />
+    <None Remove="第二步.bat" />
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="NPOI" Version="2.4.1" />
