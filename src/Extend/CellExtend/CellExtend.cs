@@ -34,12 +34,7 @@ namespace NPOI.Extend
                 return;
             }
 
-            value.GetType()
-                .Case(typeof(String)).Do(() => cell.SetCellValue(Convert.ToString(value)))
-                .Case(typeof(DateTime)).Do(() => cell.SetCellValue(Convert.ToDateTime(value)))
-                .Case(typeof(Boolean)).Do(() => cell.SetCellValue(Convert.ToBoolean(value)))
-                .Case(typeof(Int16), typeof(Int32), typeof(Int64), typeof(Byte), typeof(Single),
-                    typeof(Double), typeof(Decimal), typeof(UInt16), typeof(UInt32), typeof(UInt64)).Do(() => Convert.ToDouble(value));
+            
             if (value is IRichTextString)
             {
                 cell.SetCellValue((IRichTextString)value);
@@ -54,6 +49,15 @@ namespace NPOI.Extend
                 anchor.Row2 = cell.RowIndex + cell.GetSpan().RowSpan;
                 IDrawing patriarch = cell.Sheet.CreateDrawingPatriarch();
                 IPicture pic = patriarch.CreatePicture(anchor, pictureIdx);
+            }
+            else
+            {
+                value.GetType()
+                .Case(typeof(String)).Do(() => cell.SetCellValue(Convert.ToString(value)))
+                .Case(typeof(DateTime)).Do(() => cell.SetCellValue(Convert.ToDateTime(value)))
+                .Case(typeof(Boolean)).Do(() => cell.SetCellValue(Convert.ToBoolean(value)))
+                .Case(typeof(Int16), typeof(Int32), typeof(Int64), typeof(Byte), typeof(Single),
+                    typeof(Double), typeof(Decimal), typeof(UInt16), typeof(UInt32), typeof(UInt64)).Do(() => Convert.ToDouble(value));
             }
         }
 
