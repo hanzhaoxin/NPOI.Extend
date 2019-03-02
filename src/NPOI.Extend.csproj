@@ -13,6 +13,7 @@
 
   <ItemGroup>
     <None Remove="NPOI.Extend.1.0.5.nupkg" />
+    <None Remove="NPOI.Extend.1.0.6.nupkg" />
     <None Remove="NPOI.Extend.nuspec" />
     <None Remove="第一步.bat" />
     <None Remove="第三步.bat" />

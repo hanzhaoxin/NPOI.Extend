@@ -38,19 +38,23 @@ namespace NPOI.Extend
                 .Case(typeof(String)).Do(() => cell.SetCellValue(Convert.ToString(value)))
                 .Case(typeof(DateTime)).Do(() => cell.SetCellValue(Convert.ToDateTime(value)))
                 .Case(typeof(Boolean)).Do(() => cell.SetCellValue(Convert.ToBoolean(value)))
-                .Case(typeof(Int16), typeof(Int32), typeof(Int64), typeof(Byte), typeof(Single), 
-                    typeof(Double), typeof(Decimal), typeof(UInt16), typeof(UInt32), typeof(UInt64)).Do(() => Convert.ToDouble(value))
-                .Case(typeof(IRichTextString)).Do(() => cell.SetCellValue((IRichTextString)value))
-                .Case(typeof(Image)).Do(() => {
-                    int pictureIdx = cell.Sheet.Workbook.AddPicture(((Image)value).ToBuffer(), PictureType.PNG);
-                    IClientAnchor anchor = cell.Sheet.Workbook.GetCreationHelper().CreateClientAnchor();
-                    anchor.Col1 = cell.ColumnIndex;
-                    anchor.Col2 = cell.ColumnIndex + cell.GetSpan().ColSpan;
-                    anchor.Row1 = cell.RowIndex;
-                    anchor.Row2 = cell.RowIndex + cell.GetSpan().RowSpan;
-                    IDrawing patriarch = cell.Sheet.CreateDrawingPatriarch();
-                    IPicture pic = patriarch.CreatePicture(anchor, pictureIdx);
-                });
+                .Case(typeof(Int16), typeof(Int32), typeof(Int64), typeof(Byte), typeof(Single),
+                    typeof(Double), typeof(Decimal), typeof(UInt16), typeof(UInt32), typeof(UInt64)).Do(() => Convert.ToDouble(value));
+            if (value is IRichTextString)
+            {
+                cell.SetCellValue((IRichTextString)value);
+            }
+            else if (value is Image)
+            {
+                int pictureIdx = cell.Sheet.Workbook.AddPicture(((Image)value).ToBuffer(), PictureType.PNG);
+                IClientAnchor anchor = cell.Sheet.Workbook.GetCreationHelper().CreateClientAnchor();
+                anchor.Col1 = cell.ColumnIndex;
+                anchor.Col2 = cell.ColumnIndex + cell.GetSpan().ColSpan;
+                anchor.Row1 = cell.RowIndex;
+                anchor.Row2 = cell.RowIndex + cell.GetSpan().RowSpan;
+                IDrawing patriarch = cell.Sheet.CreateDrawingPatriarch();
+                IPicture pic = patriarch.CreatePicture(anchor, pictureIdx);
+            }
         }
 
 
