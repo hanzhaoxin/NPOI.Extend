@@ -1,6 +1,6 @@
 ﻿/*
- 类：RowExtend
- 描述：Row扩展方法
+ 类：ImageExtend
+ 描述：Image扩展方法
  编 码 人：韩兆新 日期：2015年05月15日
  修改记录：
 

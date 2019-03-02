@@ -1,6 +1,13 @@
-﻿using System;
+﻿/*
+ 类：Case<T>
+ 描述：Case
+ 编 码 人：韩兆新 日期：2019年03月02日
+ 修改记录：
+
+*/
+
+using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace NPOI.Extend
 {
