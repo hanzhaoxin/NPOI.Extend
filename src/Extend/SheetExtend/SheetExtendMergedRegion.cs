@@ -52,16 +52,17 @@ namespace NPOI.Extend
         /// <param name="maxRow"></param>
         /// <param name="minCol"></param>
         /// <param name="maxCol"></param>
+        /// <param name="onlyInternal"></param>
         /// <returns></returns>
         public static List<MergedRegionInfo> GetMergedRegionInfos(this ISheet sheet, int? minRow, int? maxRow,
-            int? minCol, int? maxCol)
+            int? minCol, int? maxCol, bool onlyInternal = true)
         {
             var regionInfoList = new List<MergedRegionInfo>();
             for (int i = 0; i < sheet.NumMergedRegions; i++)
             {
                 CellRangeAddress range = sheet.GetMergedRegion(i);
                 if (IsInternalOrIntersect(minRow, maxRow, minCol, maxCol, range.FirstRow, range.LastRow,
-                    range.FirstColumn, range.LastColumn, true))
+                    range.FirstColumn, range.LastColumn, onlyInternal))
                 {
                     regionInfoList.Add(new MergedRegionInfo(i, range.FirstRow, range.LastRow, range.FirstColumn,
                         range.LastColumn));
@@ -97,7 +98,7 @@ namespace NPOI.Extend
             List<MergedRegionInfo> regionInfoList;
             do
             {
-                regionInfoList = sheet.GetMergedRegionInfos(minRow, maxRow, minCol, maxCol);
+                regionInfoList = sheet.GetMergedRegionInfos(minRow, maxRow, minCol, maxCol, false);
                 foreach (MergedRegionInfo regionInfo in regionInfoList)
                 {
                     sheet.RemoveMergedRegion(regionInfo.Index);
