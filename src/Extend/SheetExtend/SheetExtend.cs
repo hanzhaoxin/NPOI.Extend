@@ -13,6 +13,8 @@
 
 using System;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
+using NPOI.Extend.Formula;
 using NPOI.SS.UserModel;
 
 namespace NPOI.Extend
@@ -162,7 +164,8 @@ namespace NPOI.Extend
                             targetCell.SetCellValue(sourceCell.RichStringCellValue);
                             break;
                         case CellType.Formula:
-                            targetCell.SetCellFormula(sourceCell.CellFormula);
+                            var formula = CopyFormula(sourceCell.CellFormula,span);
+                            targetCell.SetCellFormula(formula);
                             break;
                         case CellType.Blank:
                             targetCell.SetCellValue(sourceCell.StringCellValue);
@@ -240,5 +243,23 @@ namespace NPOI.Extend
         }
 
         #endregion
+
+        private static string CopyFormula(string formula, int span)
+        {
+            FormulaContext context = new FormulaContext(formula);
+            context.Parse();
+            return context.Formula.ToString(part =>
+            {
+                if (part.Type.Equals(PartType.Formula))
+                {
+                    Regex regex = new Regex(@"([A-Z]+)(\d+)");
+                    return regex.Replace(part.ToString(), (m) => $"{m.Groups[1].Value}{int.Parse(m.Groups[2].Value) + span}");
+                }
+                else
+                {
+                    return part.ToString();
+                }
+            });
+        }
     }
 }
