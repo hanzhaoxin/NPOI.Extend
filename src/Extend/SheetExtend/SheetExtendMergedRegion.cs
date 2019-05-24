@@ -61,6 +61,11 @@ namespace NPOI.Extend
             for (int i = 0; i < sheet.NumMergedRegions; i++)
             {
                 CellRangeAddress range = sheet.GetMergedRegion(i);
+                if (null == range)
+                {
+                    continue;
+                }
+
                 if (IsInternalOrIntersect(minRow, maxRow, minCol, maxCol, range.FirstRow, range.LastRow,
                     range.FirstColumn, range.LastColumn, onlyInternal))
                 {
