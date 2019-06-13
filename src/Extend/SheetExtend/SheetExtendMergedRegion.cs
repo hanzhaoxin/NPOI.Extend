@@ -9,6 +9,7 @@
 
 */
 using System.Collections.Generic;
+using System.Linq;
 using NPOI.SS.UserModel;
 using NPOI.SS.Util;
 
@@ -100,15 +101,11 @@ namespace NPOI.Extend
         public static void RemoveMergedRegions(this ISheet sheet, int? minRow, int? maxRow,
             int? minCol, int? maxCol)
         {
-            List<MergedRegionInfo> regionInfoList;
-            do
+            List<MergedRegionInfo> regionInfoList = sheet.GetMergedRegionInfos(minRow, maxRow, minCol, maxCol, false);
+            foreach (MergedRegionInfo regionInfo in regionInfoList.OrderByDescending(r => r.Index))
             {
-                regionInfoList = sheet.GetMergedRegionInfos(minRow, maxRow, minCol, maxCol, false);
-                foreach (MergedRegionInfo regionInfo in regionInfoList)
-                {
-                    sheet.RemoveMergedRegion(regionInfo.Index);
-                }
-            } while (regionInfoList.Count > 0);
+                sheet.RemoveMergedRegion(regionInfo.Index);
+            }
         }
 
         #endregion
