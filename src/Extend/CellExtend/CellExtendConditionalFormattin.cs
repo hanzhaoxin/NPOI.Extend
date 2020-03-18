@@ -19,7 +19,17 @@ namespace NPOI.Extend
             {
                 new CellRangeAddress(cell.RowIndex, cell.RowIndex, cell.ColumnIndex, cell.ColumnIndex)
             };
-            cell.Sheet.SheetConditionalFormatting.AddConditionalFormatting(regions, cfrs);
+            if (cfrs.Length <= 3)
+            {
+                cell.Sheet.SheetConditionalFormatting.AddConditionalFormatting(regions, cfrs);
+            }
+            else
+            {
+                foreach(var item in cfrs)
+                {
+                    cell.Sheet.SheetConditionalFormatting.AddConditionalFormatting(regions, item);
+                }
+            }
         }
 
         #endregion
